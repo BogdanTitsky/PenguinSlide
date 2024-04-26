@@ -1,0 +1,94 @@
+using UnityEngine;
+
+namespace Game
+{
+    public class PenguinMover : MonoBehaviour
+    {
+        [Header("References")] [SerializeField]
+        private Rigidbody2D rigidBody;
+
+        [SerializeField] private LineRenderer lineRenderer;
+
+        [Header("Atributes")] [SerializeField] private float maxPower = 10f;
+        [SerializeField] private float power = 2f;
+        private bool inHole;
+        private bool isDrugging;
+        private Camera mainCamera;
+        private Vector2 startPoint;
+
+        private void Start()
+        {
+            mainCamera = Camera.main;
+        }
+
+        private void Update()
+        {
+            PlayerInput();
+            if (!CanSlide()) RotateTowardsMovement();
+        }
+
+        private void RotateTowardsMovement()
+        {
+            var velocityDirection = rigidBody.velocity.normalized;
+
+            var angle = Mathf.Atan2(velocityDirection.y, velocityDirection.x) * Mathf.Rad2Deg;
+            angle += 90f;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+        private bool CanSlide()
+        {
+            return rigidBody.velocity.magnitude <= 0.2f;
+        }
+
+        private void PlayerInput()
+        {
+            if (!CanSlide()) return;
+            Vector2 inputPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            var distance = Vector2.Distance(transform.position, inputPosition);
+            if (Input.GetMouseButtonDown(0) && !isDrugging)
+            {
+                startPoint = inputPosition;
+                DragStart();
+            }
+
+            if (Input.GetMouseButton(0) && isDrugging)
+                DragChange(inputPosition);
+            if (Input.GetMouseButtonUp(0) && isDrugging)
+                DragRelease(inputPosition);
+        }
+
+        private void DragStart()
+        {
+            isDrugging = true;
+            lineRenderer.positionCount = 2;
+        }
+
+        private void DragChange(Vector2 inputPosition)
+        {
+            var penguinPos = transform.position;
+
+            var direction = startPoint - inputPosition;
+
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle += 90f;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            lineRenderer.SetPosition(0, penguinPos);
+            lineRenderer.SetPosition(1,
+                (Vector2)penguinPos + Vector2.ClampMagnitude(direction * power / 2, maxPower / 2));
+        }
+
+        private void DragRelease(Vector2 inputPosition)
+        {
+            var distance = Vector2.Distance(startPoint, inputPosition);
+            isDrugging = false;
+            lineRenderer.positionCount = 0;
+            if (distance < 1f)
+                return;
+            var direction = startPoint - inputPosition;
+
+            rigidBody.velocity = Vector2.ClampMagnitude(direction * power, maxPower);
+        }
+    }
+}
