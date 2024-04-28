@@ -96,13 +96,13 @@ namespace Game
 
         private void DragRelease(Vector2 inputPosition)
         {
-            onDragRelease?.Invoke();
-            isStopped = false;
             var distance = Vector2.Distance(startPoint, inputPosition);
             isDrugging = false;
             lineRenderer.positionCount = 0;
             if (distance < 1f)
                 return;
+            onDragRelease?.Invoke();
+            isStopped = false;
             var direction = startPoint - inputPosition;
 
             rigidBody.velocity = Vector2.ClampMagnitude(direction * power, maxPower);

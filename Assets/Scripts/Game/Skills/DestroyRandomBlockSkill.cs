@@ -21,6 +21,7 @@ namespace Game.Skills
 
             var randomIndex = Random.Range(0, blocks.list.Count);
             var blockToDestroy = blocks.list[randomIndex];
+           
             blockToDestroy.DestroyBlock();
             if (blocks.list.Count == 0)
                 button.interactable = false;

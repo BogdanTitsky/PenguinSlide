@@ -687,7 +687,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   list:
   - {fileID: 1960833704}
-  - {fileID: 0}
   - {fileID: 1285694127}
 --- !u!1 &161218559
 GameObject:
@@ -1114,6 +1113,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6646138847101727121, guid: 6b5f747cd32ae5341863489c9336f518, type: 3}
+      propertyPath: grabFx
+      value: 
+      objectReference: {fileID: 3937585816955264728, guid: 07f06575a26b23842b028edaf6fbfb94, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
