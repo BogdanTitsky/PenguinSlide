@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Zenject;
 
 namespace Game
 {
@@ -11,9 +13,11 @@ namespace Game
 
         [Header("Atributes")] [SerializeField] private float maxPower = 10f;
         [SerializeField] private float power = 2f;
+        public bool isStopped = true;
         private bool inHole;
         private bool isDrugging;
         private Camera mainCamera;
+        [Inject] private MovesCount movesCount;
         private Vector2 startPoint;
 
         private void Start()
@@ -24,8 +28,16 @@ namespace Game
         private void Update()
         {
             PlayerInput();
-            if (!CanSlide()) RotateTowardsMovement();
+            if (!isStopped)
+            {
+                CheckIsStopped();
+                RotateTowardsMovement();
+            }
         }
+
+        public event Action OnStop;
+
+        public event Action onDragRelease;
 
         private void RotateTowardsMovement()
         {
@@ -36,16 +48,19 @@ namespace Game
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
-        private bool CanSlide()
+        private void CheckIsStopped()
         {
-            return rigidBody.velocity.magnitude <= 0.2f;
+            if (rigidBody.velocity.magnitude <= 0.4f)
+            {
+                OnStop?.Invoke();
+                isStopped = true;
+            }
         }
 
         private void PlayerInput()
         {
-            if (!CanSlide()) return;
+            if (!isStopped || movesCount.movesCount == 0) return;
             Vector2 inputPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            var distance = Vector2.Distance(transform.position, inputPosition);
             if (Input.GetMouseButtonDown(0) && !isDrugging)
             {
                 startPoint = inputPosition;
@@ -81,6 +96,8 @@ namespace Game
 
         private void DragRelease(Vector2 inputPosition)
         {
+            onDragRelease?.Invoke();
+            isStopped = false;
             var distance = Vector2.Distance(startPoint, inputPosition);
             isDrugging = false;
             lineRenderer.positionCount = 0;

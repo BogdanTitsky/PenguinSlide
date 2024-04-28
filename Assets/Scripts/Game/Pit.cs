@@ -7,10 +7,9 @@ namespace Game
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("WW");
-            if (other.CompareTag("Penguin")) OnGameLost?.Invoke();
+            if (other.CompareTag("Penguin")) OnTriggerPit?.Invoke();
         }
 
-        public event Action OnGameLost;
+        public static event Action OnTriggerPit;
     }
 }
