@@ -304,4 +304,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 30952752524011821}
   sfxSource: {fileID: 3791385580243837784}
-  fishGrabSfx: {fileID: 8300000, guid: 73dd6b887eaddc648bbbf12de3dd2db2, type: 3}
+  fishGrabSfx: {fileID: 8300000, guid: 5052682f23f19384da5d743dc76ed64b, type: 3}
+  blockDestroySfx: {fileID: 8300000, guid: 73dd6b887eaddc648bbbf12de3dd2db2, type: 3}
+  onHurtSfx: {fileID: 8300000, guid: a76b32836dc7cc44aa9a52f0694ee199, type: 3}
+  onButtonClickSfx: {fileID: 8300000, guid: 63006d0840c05d0448daaf6ae066e4ba, type: 3}
+  tickAudioClipSfx: {fileID: 8300000, guid: 8ab9f96308f525a49a7ac7a50256d6ed, type: 3}

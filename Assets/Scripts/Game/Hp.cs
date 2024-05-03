@@ -1,21 +1,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Game
 {
     public class Hp : MonoBehaviour
     {
         [SerializeField] private List<GameObject> hearts;
+        [Inject] private Penguin penguin;
 
         private void OnEnable()
         {
-            SpikesBlock.OnTriggerSpikes += GetHpDamage;
+            penguin.OnTakeDamage += GetHpDamage;
         }
 
         private void OnDisable()
         {
-            SpikesBlock.OnTriggerSpikes -= GetHpDamage;
+            penguin.OnTakeDamage -= GetHpDamage;
         }
 
         public event Action OnAllHpLose;

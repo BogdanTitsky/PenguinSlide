@@ -12,7 +12,7 @@ namespace Game
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            audioManager.PlatSfx(audioManager.fishGrabSfx);
+            audioManager.PlaySfx(audioManager.fishGrabSfx);
             OnFishGrab?.Invoke();
             var fx = Instantiate(grabFx, transform.position, Quaternion.identity);
             Destroy(gameObject);

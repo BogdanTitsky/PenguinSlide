@@ -10,6 +10,10 @@ namespace Music
         [SerializeField] private AudioSource sfxSource;
 
         [Header("Audio Clip")] public AudioClip fishGrabSfx;
+        public AudioClip blockDestroySfx;
+        public AudioClip onHurtSfx;
+        public AudioClip onButtonClickSfx;
+        public AudioClip tickAudioClipSfx;
 
 
         private void Start()
@@ -17,7 +21,7 @@ namespace Music
             musicSource.Play();
         }
 
-        public void PlatSfx(AudioClip clip)
+        public void PlaySfx(AudioClip clip)
         {
             sfxSource.PlayOneShot(clip);
         }

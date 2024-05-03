@@ -15,4 +15,11 @@ public class LevelLoader : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
+
+    public void ResetScene()
+    {
+        Time.timeScale = 1;
+        var sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
+    }
 }

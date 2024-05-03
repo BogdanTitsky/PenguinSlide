@@ -1,29 +1,31 @@
-﻿using Constants;
+﻿using Infrastructure;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Shop
 {
-    public class FishBalance : MonoBehaviour, IPlayerBalance
+    public class FishBalance : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI countText;
+
         private int count;
+        [Inject] private GameData gameData;
 
-        private void Start()
+        private void OnEnable()
         {
-            count = PlayerPrefs.GetInt(PlayerPrefsConsts.FishBalance);
-            SetText();
+            UpdateBalance();
+            gameData.OnDataChanged += UpdateBalance;
         }
 
-        public void IncBalance(int inc)
+        private void OnDisable()
         {
-            count += inc;
-            SetText();
+            gameData.OnDataChanged -= UpdateBalance;
         }
 
-        public void DecrBalance(int decr)
+        private void UpdateBalance()
         {
-            count -= decr;
+            count = gameData.fishBalance;
             SetText();
         }
 

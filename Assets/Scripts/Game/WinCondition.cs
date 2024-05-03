@@ -10,6 +10,7 @@ namespace Game
         [SerializeField] private Fish[] fishes;
         [SerializeField] private PopUpController winPopUp;
         [SerializeField] private PopUpController losePopUp;
+        [SerializeField] private PopUpController noSlidesPopUp;
         private int fishCount;
         [Inject] private Hp hp;
         [Inject] private MovesCount movesCount;
@@ -40,7 +41,7 @@ namespace Game
         {
             Debug.Log("OnSTOP");
 
-            if (movesCount.movesCount == 0 && fishCount > 0) GameLost();
+            if (movesCount.movesCount == 0 && fishCount > 0) NoSlides();
             if (fishCount == 0) GameWon();
         }
 
@@ -53,15 +54,18 @@ namespace Game
 
         private void GameWon()
         {
-            Debug.Log("GameWon");
             winPopUp.ShowPopUp();
             OnLevelWon?.Invoke();
         }
 
         private void GameLost()
         {
-            Debug.Log("Gamelost");
             losePopUp.ShowPopUp();
+        }
+
+        private void NoSlides()
+        {
+            noSlidesPopUp.ShowPopUp();
         }
     }
 }

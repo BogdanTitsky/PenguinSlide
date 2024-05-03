@@ -75,5 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioManagerPrefab: {fileID: 406006491376085361, guid: d8c4427ec193fd14b9d6dc4d14e58e27, type: 3}
-  fishBalance: {fileID: 4739412006250509527, guid: 0c5ca25f6d3226d40974ac58537cc2ff, type: 3}
-  crystalBalance: {fileID: 2423865657480350128, guid: 96619461f374b2847ba5fcf382947964, type: 3}
+  gameData: {fileID: 11400000, guid: 3a2d3df7f9b321a4086a10acffa2530f, type: 2}

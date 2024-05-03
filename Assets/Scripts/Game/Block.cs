@@ -33,7 +33,7 @@ namespace Game
         public void DestroyBlock()
         {
             blocks.list.Remove(this);
-            audioManager.PlatSfx(audioManager.fishGrabSfx);
+            audioManager.PlaySfx(audioManager.blockDestroySfx);
             var fx = Instantiate(breakFx, transform.position, Quaternion.identity);
             Destroy(gameObject);
             Destroy(fx, 2f);

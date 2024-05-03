@@ -37,7 +37,7 @@ namespace Game
 
         public event Action OnStop;
 
-        public event Action onDragRelease;
+        public event Action OnDragRelease;
 
         private void RotateTowardsMovement()
         {
@@ -101,7 +101,7 @@ namespace Game
             lineRenderer.positionCount = 0;
             if (distance < 1f)
                 return;
-            onDragRelease?.Invoke();
+            OnDragRelease?.Invoke();
             isStopped = false;
             var direction = startPoint - inputPosition;
 

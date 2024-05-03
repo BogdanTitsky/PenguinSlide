@@ -11,8 +11,8 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            Container.Bind<FishBalance>().FromInstance(fishBalance).AsSingle().NonLazy();
-            Container.Bind<CrystalBalance>().FromComponentInNewPrefab(crystalBalance).AsSingle().NonLazy();
+            // Container.Bind<FishBalance>().FromInstance(fishBalance).AsSingle().NonLazy();
+            // Container.Bind<CrystalBalance>().FromComponentInNewPrefab(crystalBalance).AsSingle().NonLazy();
         }
     }
 }

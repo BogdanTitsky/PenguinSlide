@@ -1,29 +1,30 @@
-﻿using Constants;
+﻿using Infrastructure;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Shop
 {
-    public class CrystalBalance : MonoBehaviour, IPlayerBalance
+    public class CrystalBalance : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI countText;
         private int count;
+        [Inject] private GameData gameData;
 
-        private void Start()
+        private void OnEnable()
         {
-            count = PlayerPrefs.GetInt(PlayerPrefsConsts.CrystalsBalance);
-            SetText();
+            UpdateBalance();
+            gameData.OnDataChanged += UpdateBalance;
         }
 
-        public void IncBalance(int inc)
+        private void OnDisable()
         {
-            count += inc;
-            SetText();
+            gameData.OnDataChanged -= UpdateBalance;
         }
 
-        public void DecrBalance(int decr)
+        private void UpdateBalance()
         {
-            count -= decr;
+            count = gameData.crystalsBalance;
             SetText();
         }
 
