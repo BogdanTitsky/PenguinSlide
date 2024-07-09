@@ -11,9 +11,13 @@ namespace Game
 
         [SerializeField] private LineRenderer lineRenderer;
 
-        [Header("Atributes")] [SerializeField] private float maxPower = 10f;
+        [Header("Attributes")] [SerializeField]
+        private float maxPower = 10f;
+
         [SerializeField] private float power = 2f;
+
         public bool isStopped = true;
+        private readonly float linearDrag = 1.1f;
         private bool inHole;
         private bool isDrugging;
         private Camera mainCamera;
@@ -23,16 +27,16 @@ namespace Game
         private void Start()
         {
             mainCamera = Camera.main;
+            rigidBody.drag = linearDrag;
         }
 
         private void Update()
         {
+            if (Time.timeScale < 1f)
+                return;
+
             PlayerInput();
-            if (!isStopped)
-            {
-                CheckIsStopped();
-                RotateTowardsMovement();
-            }
+            if (!isStopped) CheckIsStopped();
         }
 
         public event Action OnStop;
@@ -85,9 +89,10 @@ namespace Game
 
             var direction = startPoint - inputPosition;
 
-            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            angle += 90f;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            //Rotate in direction
+            // var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // angle += 90f;
+            // transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
             lineRenderer.SetPosition(0, penguinPos);
             lineRenderer.SetPosition(1,
@@ -99,7 +104,7 @@ namespace Game
             var distance = Vector2.Distance(startPoint, inputPosition);
             isDrugging = false;
             lineRenderer.positionCount = 0;
-            if (distance < 1f)
+            if (distance < 0.8f)
                 return;
             OnDragRelease?.Invoke();
             isStopped = false;

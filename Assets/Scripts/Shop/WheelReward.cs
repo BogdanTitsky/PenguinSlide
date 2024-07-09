@@ -32,7 +32,7 @@ namespace Shop
             pickerWheel.OnSpinEnd(wheelPiece =>
             {
                 if (wheelPiece.Label == "Crystal") gameData.AddCrystals(wheelPiece.Amount);
-                if (wheelPiece.Label == "Fish") gameData.AddFish(wheelPiece.Amount);
+                if (wheelPiece.Label == "Star") gameData.AddFish(wheelPiece.Amount);
                 if (wheelPiece.Label == "Breaker") gameData.AddPenguinBreakerSkill(wheelPiece.Amount);
                 if (wheelPiece.Label == "Slide") gameData.AddAdditionalSlideSkill(wheelPiece.Amount);
                 spinButton.interactable = true;
@@ -43,7 +43,7 @@ namespace Shop
 
         private bool CheckEnoughBalance()
         {
-            if (gameData.crystalsBalance <= 1)
+            if (gameData.crystalsBalance < 1)
             {
                 NotEnoughtCrystalsPopUp.ShowPopUp();
                 return false;

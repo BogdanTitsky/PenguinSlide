@@ -7,7 +7,7 @@ namespace Game
 {
     public class WinCondition : MonoBehaviour
     {
-        [SerializeField] private Fish[] fishes;
+        [SerializeField] private FishList fishes;
         [SerializeField] private PopUpController winPopUp;
         [SerializeField] private PopUpController losePopUp;
         [SerializeField] private PopUpController noSlidesPopUp;
@@ -19,8 +19,8 @@ namespace Game
 
         private void Start()
         {
-            fishCount = fishes.Length;
-            foreach (var fish in fishes) fish.OnFishGrab += FishGrabbed;
+            fishCount = fishes.list.Count;
+            foreach (var fish in fishes.list) fish.OnFishGrab += FishGrabbed;
         }
 
         private void OnEnable()
@@ -39,8 +39,6 @@ namespace Game
 
         private void CheckGameResults()
         {
-            Debug.Log("OnSTOP");
-
             if (movesCount.movesCount == 0 && fishCount > 0) NoSlides();
             if (fishCount == 0) GameWon();
         }

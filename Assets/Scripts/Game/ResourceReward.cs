@@ -42,7 +42,13 @@ namespace Game
 
         private void LevelCompleted()
         {
-            if (gameData.unlockedLevels == SceneManager.GetActiveScene().buildIndex) gameData.unlockedLevels++;
+            var currentSceneName = SceneManager.GetActiveScene().name;
+
+            var levelNumberStr = currentSceneName.Substring(5);
+
+            if (!int.TryParse(levelNumberStr, out var levelNumber)) return;
+            if (gameData.unlockedLevels == levelNumber)
+                gameData.LevelUp();
         }
     }
 }

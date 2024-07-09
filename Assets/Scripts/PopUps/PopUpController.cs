@@ -8,6 +8,7 @@ namespace PopUps
         [SerializeField] private GameObject popUp;
         [SerializeField] private GameObject popUpView;
         [SerializeField] private bool pauseGame;
+
         private readonly float duration = 0.5f;
 
         private void OnEnable()
@@ -19,6 +20,12 @@ namespace PopUps
         {
             popUp.SetActive(true);
             popUpView.transform.DOScale(1, duration).SetEase(Ease.OutBack).OnComplete(PauseGame);
+        }
+
+        public void ShowPopUpWithoutAnimation()
+        {
+            popUp.SetActive(true);
+            popUpView.transform.DOScale(1, 0).SetEase(Ease.OutBack).OnComplete(PauseGame);
         }
 
         public void HidePopUp()

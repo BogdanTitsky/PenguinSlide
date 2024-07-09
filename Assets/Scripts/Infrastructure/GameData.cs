@@ -101,6 +101,13 @@ namespace Infrastructure
             SaveGameData();
         }
 
+        public void LevelUp()
+        {
+            unlockedLevels++;
+            OnDataChanged?.Invoke();
+            SaveGameData();
+        }
+
         public void RemovePenguinBreakerSkill()
         {
             if (penguinBreakerSkillBalance >= 1)
@@ -110,6 +117,7 @@ namespace Infrastructure
                 SaveGameData();
             }
         }
+
 
         private void SaveGameData()
         {
