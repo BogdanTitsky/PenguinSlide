@@ -104,7 +104,7 @@ namespace Game
             var distance = Vector2.Distance(startPoint, inputPosition);
             isDrugging = false;
             lineRenderer.positionCount = 0;
-            if (distance < 0.8f)
+            if (distance < 0.4f)
                 return;
             OnDragRelease?.Invoke();
             isStopped = false;
